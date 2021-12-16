@@ -9,7 +9,7 @@ tag:
   - Batch
 ---
 
-Changing an IP address on a windows PC multiple times a day can be time consuming. Learn here how to make a batch script that helps in automating this process.
+Changing an IP address on a Windows PC multiple times a day can be time consuming. Learn here how to make a batch script that helps in automating this process.
 
 ### 1. Explanation
 If you have to change your IP address from static to DHCP and back to static you will know that it takes some time to change this. You have to go to the adapter menu and change the adapter settings.
