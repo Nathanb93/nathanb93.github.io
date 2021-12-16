@@ -9,6 +9,9 @@ tag:
   - Batch
 ---
 
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({})</script>
+
 Changing an IP address on a Windows PC multiple times a day can be time consuming. Learn here how to make a batch script that helps in automating this process.
 
 ### 1. Explanation
