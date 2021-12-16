@@ -8,7 +8,7 @@ permalink: /about/
 
 ### Nathan Boone
 ### Seoul
-### Network Engineer at Wipro
+### Network Engineer
 
 The goal of this blog is to document my road, with the hope it can help others.
 
