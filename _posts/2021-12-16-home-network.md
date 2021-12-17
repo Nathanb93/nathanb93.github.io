@@ -15,8 +15,15 @@ tag:
 When moving to South-Korea I only had my laptop and a monitor but my home network/homelab evolved over time.
 
 ### Table of contents
-1. [Intro](#Intro)
-2. [All in one server](#All in one server)
+1\. [Intro](#Intro)  
+2\. [All in one server](#All in one server)  
+3\. [Hardware](#Hardware)  
+3.1 [RAM](#RAM)  
+3.2 [HBA](#HBA)  
+3.3 [Intel network card](#Intel network card)  
+3.4 [Hard Drives and SSD](#Hard Drives and SSD)  
+4\. [Software](#Software)  
+4.1 [ESXI](#ESXI)  
 
 ### 1. Intro <a name="Intro"></a>
 I could only take my laptop and computer monitor when moving from my hometown in Belgium to South-Korea. 
@@ -41,7 +48,7 @@ This server did not have all the required hardware so I bought the following:
 - 4 port intel network card
 - Hard Drives and SSD
 
-#### 3.0 Hardware <a name="Hardware"></a>
+#### 3. Hardware <a name="Hardware"></a>
 ##### 3.1 RAM <a name="RAM"></a>
 This server not have enough RAM and it was not ECC RAM so I bought some new ECC RAM through Ebay, but after installing this new RAM, the only thing I got were some beeps and my server did not boot anymore. After lots of searching I found out that I bought unbuffered RAM instead of the compatible buffured RAM. I did not even know that buffered or unbuffered RAM existed. So I went to the electronics market in Yongsan-gu and bought 16GB compatible RAM sticks, 2 times 8GB. There were already 2 sticks of 4GB in the servers so I had a total of 24GB RAM. 
 
@@ -56,7 +63,7 @@ The workstation only had 1 onboard NIC, which is technically enough when working
 ##### 3.4 Hard Drives and SSD <a name="Hard Drives and SSD"></a>
 For Hard Drives I went for Western Digital 4TB which I bought locally at the electronics market in Yongsan-gu. I bought the SSD through Amazon. The HDDs were used in FreeNAS and the SSD was used to run the OS and also had the datastore for all the VMs.
 
-#### 4.0 Software <a name="Software"></a>
+#### 4. Software <a name="Software"></a>
 ##### 4.1 ESXI <a name="ESXI"></a>
 As I wanted an all in one solution I went for ESXI. Within ESXI I had multiple VMs, these VMs were:
 - pfSense
