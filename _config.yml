@@ -18,9 +18,9 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: ""
+title: "Nabomang"
 email: nathanb93@hotmail.com
-description: "" # this means to ignore newlines until "baseurl:"
+description: "Networking and more technology" # this means to ignore newlines until "baseurl:"
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://nabomang.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: Nabomang
@@ -43,7 +43,7 @@ google_analytics: "UA-151956498-1"
 disqus:
   shortname: nabomang
 logo: /images/logo.png
-# skin: "/assets/css/skins/dark.css"
+# skin: "/assets/css/skins/light.css"
 
 
 # Build settings
