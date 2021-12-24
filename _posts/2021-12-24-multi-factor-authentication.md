@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "Multi Factor Authentication"
-date:   2021-12-24 15:01:02 +0900
-categories: Security 
+title:  "Multi-factor Authentication"
+date:   2021-12-23 15:01:02 +0900
+categories: Windows 
 author: nathan
 tag: 
   - Multi-factor
@@ -14,69 +14,71 @@ tag:
 Using mutli-factor authentication increases the security for loging in to websites significantly more robust. But what hapends when your phone is lost?
 
 # 1. Explanation
-If you have to change your IP address from static to DHCP and back to static you will know that it takes some time to change this. You have to go to the adapter menu and change the adapter settings.
-In this tutorial I will give some example batch scripts to change the adapter IP address settings without going to the menu.
-The adapter name can change from computer to computer so best to check your adapter name by typing "ipconfig" in the cmd window.
+Multi-factor authentication (MFA) means when multiple means of proving your identity when loging in to a website or applicatoin. This can be 2 methods or more methods. This can be password and an SMS passcode or email passcode and SMS passcode, or other combinations. These days due to the many breaches many user passwords are out on the internet. Many companies are using a form of MFA to protect their infrastructure and it is also recomended that individual people use MFA to protect themselves.
 
-### 2. Batch scripts
+Usually when a person uses MFA, this MFA will consist out to 2 methods to prove the identity. Usually a password and a passcode derived from your phone through SMS/authenticator APP or e-mail. I prefer the authenticator APP method, I will explain more about this below. 
 
-#### 2.1 DHCP
-The following script will change the adapter named "Ethernet" dns and IP address to DHCP. In the end it will show you the adapter new IP settings. You can press q to exit the script.
-```bash
-  @echo off
-  netsh interface ip set address "Ethernet" dhcp
-  netsh interface ip set dns name="Ethernet" dhcp
-  :loop
-  	netsh interface ip show config name="Ethernet" | findstr /V Metric | findstr /V suffix | findstr /V WINS
-  	set /p Quit=To close this window press q:
-  	if [%Quit%]==[q] exit
-  goto loop
-```
+You might have already thougt, this is all good and sounds secure but what if I loose access to 1 or more of the methods required to login to a website or application. I will go over multiple ways to recover access.
 
-#### 2.2 Static IP
-The following script will expect you to input an IP address, default gateway and subnet mask. It will then change the adapter named "Ethernet" with the information you provided. In the end it will show you the adapter new IP settings. You can press q to exit the script.
-```bash
-  @echo off
-  echo "Static IP Address:"
-  set /p IP_Address=
+# 2. Password Manager
+A password manager is a tool which helps you to remember passwords so you only need to remember one password and you never have to type passwords anymore.
 
-  echo "Default Gateway:"
-  set /p Default_Gateway=
+## 2.1 Why password manager?
+Passwords are everywhere, alomost every site and application requires you to have an account. It is almost impossible for a person to use a different password for all these sites and applications and remember which password was used for each. A password manager will help you to generate a unique password and auto-fill this password for future logins. Thanks to the password manager you only need to remember one password and that is the master password of your vault. This vault is the place of the password manager that will store all your passwords.
 
-  echo "Subnet Mask:"
-  set /p Subnet_Mask=
+Of course you could use the same password in every website and application but that is strongly discouraged. Beacuse you do not know how and where those websites and applications store your passwords. If only one of these companies get breached and your password is leaked on the internet than you will need to change your password on all the other sites. Remember, when using the sae password everywhere, your password is only as strong as the security of the least secure company.
 
-  netsh interface ip set address "Ethernet" static %IP_Address% %Subnet_Mask% %Default_Gateway%
-  :loop
-  	netsh interface ip show config name="Ethernet" | findstr /V Metric | findstr /V suffix | findstr /V WINS
-  	set /p Quit=To close this window press q:
-  	if [%Quit%]==[q] exit
-  goto loop
-```
+My mail address was part of 6 seperate breaches but thanks to using a password manager it was easy to change my password for only these 6 websites.
 
-#### 2.3 What is my IP
-This script will show you the "Ethernet" and "Wi-Fi" adapter IP settings. You can press q to exit the script.
-```bash
-  @echo off
-  :loop
-  	netsh interface ip show config name="Ethernet" | findstr /V Metric | findstr /V suffix | findstr /V WINS
-  	netsh interface ip show config name="Wi-Fi" | findstr /V Metric | findstr /V suffix | findstr /V WINS
-  	set /p Quit=To close this window press q:
-  	if [%Quit%]==[q] exit
-  goto loop
-```
+## 2.2 Different password managers
+There are many password managers available these days. I would suggest to use a password manager from a respected vendor. I have used LastPass before and shifted to Bitwarden and never looked back. I would recommend to use Bitwarden to anyone who asks me.
 
-#### 2.4 Explenation of commands used in scripts
-`@echo off` this will make sure that only the required output is printed on the screen. The commands that are used inside the scripts will not be shown in the output."
+# 3. Multi-factor authentication methods
+There are many multi-factor authentication methods and these can all be used in combination with each other depending on what the website or application supports. To get an idea of which places support multi-factor authentication you can check on https://2fa.directory/.
 
-`netsh interface ip set` changes the IP address and DNS settings of the Ethernet adapter to DHCP.
+There are 4 factors which can be part of multi-factor authentication:
+1. Something in your possesion: security token, bank card, a key, time-based one-time passcode, ...
+2. Something you know: password, pin, passphrase, ...
+3. Something you are: fingerprint, face, eyes, ...
+4. Somewhere you are: GPS coordinates of your current location, ...
 
-`netsh interface ip show` shows information about the specified interface. The `/V` will exclude the information we do not require.
+We will be concentrating on authenticator app which provides time-based one-time passcodes.
 
-`:loop` this will make a placeholder in the script where you can later on reffer to so you can jump back to this place in the script. You can give this any name you want. In this case it is named loop because we are using this as a loop.
+## 3.1 Time-based one-time passcodes
+Time-based one-time passcode (TOTP) are passcodes that are generated by an authenticor application which is usually installed on your PC but can also be built-in to a hardware security token.
 
-`goto loop` this will jump back to the placeholder we made earlier which we named "loop"
+The place where you want to login will generate a long secrect key. This key will usually be transfered to the authenticator by scanning a QR code. With this secret key and the Unix timestamp (independent of timezones) the authenticator can generate an TOTP while using HMAC-Based One-Time Password (HOTP) algotirthm. 
 
-`set /p Quit=` this will wait on an input of the user and place the input in the Quit variable
+When you need to login, both your authenticator and the website will create a TOTP so when you fill in your TOPT the website will compare both keys to verify if they are the same.
 
-`if [%Quit%]==[q] exit` this will compare the user input with "q" if it is "q" then it will end the program which will also end the loop.
+## 3.1 SMS or e-mail 
+SMS and e-mail are used a lot for providing a passcode to the user for login. This method is better than no MFA but both are having security issues.
+
+## 3.2 Hardware security token
+A hardware security token is secure but if for most users overkill and has a certain difficulty to start due to requiring to buy this device.
+
+# 4. Authenticators
+There are many authenticators and each of them provide a different user interface and other backup methods. 
+
+Researched authenticators:
+- DUO: backup to Google Drive with an encryption key
+- Google Authenticator: create a QR code and scan QR code for recovery
+- Microsoft Authenticator: backup to OneDrive
+- Authy: backup in the cloud with a password
+
+I choose for DUO as it part of Cisco which is a respected company and also because it provides the best backup and restore method for my use case. I don't feel confident I can securely store the QR code for Google Authenticator, Microsoft not requiring a password for accessing the keys and having to trust Twilio Authy for cloud storage are all reasons why I chose for DUO.
+
+# 5. Usage of Bitwarden and DUO
+
+# 5.1 Bitwarden Phone and DUO Phone
+![mfa-Phone Bitwarden](/images/blog_mfa-Phone Bitwarden.png)
+
+# 5.2 Bitwarden PC and DUO Phone
+![mfa-PC Bitwarden](/images/blog_mfa-PC Bitwarden.png)
+
+# 6. Lost Phone Recovery
+Below you can find a flowchart on how to recover access to DUO passcodes, Bitwarden and Microsoft Authenticator. All three are 
+![mfa-Lost Phone Recovery](/images/blog_mfa-Lost Phone Recovery.png)
+
+# 7. Outro
+There are many applications and many ways for doing multi-factor authentication. Every one can implement this in their own way
