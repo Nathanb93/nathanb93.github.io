@@ -40,8 +40,8 @@ google_fonts:
   - name: "Lora"
     weights: "400,400i,700,700i"
 google_analytics: "UA-151956498-1"
-disqus:
-  shortname: nabomang
+#disqus:
+# shortname: nabomang
 logo: /images/logo.png
 # skin: "/assets/css/skins/light.css"
 
