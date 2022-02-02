@@ -51,14 +51,14 @@ The place where you want to log in will generate a long secret key. This key wil
 
 When you need to log in, both your authenticator and the website will create a TOTP passcode so when you fill in your passcode the website will compare both passcodes to verify if they are the same.
 
-## 3.1 SMS or e-mail 
+## 3.2 SMS or e-mail 
 SMS and e-mail are used a lot for providing a passcode to the user for login. This method is better than no MFA but both are having security or ease of use issues.
 
 There are multiple ways a hacker can get a hold of the SMS messages, they can be intercepted by swapping out the SIM card or ordering a copy of the SIM card. 
 
 E-mail is slow to get the passcode and the e-mail account can be hacked.
 
-## 3.2 Hardware security token
+## 3.3 Hardware security token
 A hardware security token is secure but it is overkill for most users and has a certain difficulty to start due to requiring to buy this hardware device.
 
 # 4. Authenticators
